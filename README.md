@@ -1,34 +1,21 @@
 # aws-lambda-hello
-Hello World! In AWS Lambda.
+This example repo contains the code for hello world & a shell script that can build & deploy a lambda function to AWS using the latest `provided.al2` runtime from sratch.
 
 
-### Create trust policy for Lambda
+### Prerequisites
+- AWS CLI (Should be configured & logged in with default region)
+- Go
+- jq
+
+## How to run?
+Parameters are optional. Defaults will be used unless specified.
 ```
-aws iam create-role --role-name lambda-ex --assume-role-policy-document file://trust-policy.json
+deploy.sh functionName roleName
 ```
 
-### Add permissions for the created role
-```
-aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-```
+## Features
 
-### Compile the GO Program
-```
-make
-```
-
-### Zip the file contents
-```
-zip main.zip main
-```
-
-### Create Lambda function & upload the zip file
-The IAM role is from the previous command
-```
-aws lambda create-function --function-name my-function --runtime go1.x --role arn:aws:iam::248491707577:role/lambda-ex --handler main --zip-file fileb://main.zip
-```
-
-### Script Usage
-```
-./deploy.sh function_name
-```
+The script will do the following:
+- Create lambda execution role
+- Create lambda function
+- Build & deploy latest code (current directory) to Lambda

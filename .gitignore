@@ -16,6 +16,7 @@
 
 # GO binary
 main
+bootstrap
 
 # Zip File
 *.zip
